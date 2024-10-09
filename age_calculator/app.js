@@ -6,10 +6,10 @@ dateInput.max = new Date().toISOString().split("T")[0];
 let result = document.getElementById("result");
 
 function calculateAge() {
-  // Check if a date is selected
+  // Check if the input field has any value
   if (!dateInput.value) {
     result.innerHTML = "Please select your date of birth.";
-    return; // Stop further execution
+    return;
   }
 
   let dateOfBirth = new Date(dateInput.value);
@@ -47,7 +47,28 @@ function calculateAge() {
     y3--;
   }
 
-  result.innerHTML = `You are <span>${y3}</span> years,  <span>${m3} </span> months, and  <span>${d3} </span> days old.`;
+  // For ages less than 1 year old
+  if (y3 === 0) {
+    result.innerHTML = `You are <span>${m3}</span> ${pluralize(
+      m3,
+      "month"
+    )}, and <span>${d3}</span> ${pluralize(d3, "day")} old.`;
+  }
+  // For singular date values, i.e 1 yr 1mm 1d etc
+  else {
+    result.innerHTML = `You are <span>${y3}</span> ${pluralize(
+      y3,
+      "year"
+    )}, <span>${m3}</span> ${pluralize(
+      m3,
+      "month"
+    )}, and <span>${d3}</span> ${pluralize(d3, "day")} old.`;
+  }
+}
+
+// Return the singular or plural form of Year/Month/Day based on value
+function pluralize(value, unit) {
+  return value === 1 ? unit : unit + "s";
 }
 
 function getDaysInMonth(year, month) {
