@@ -25,7 +25,7 @@
 }
 
 .calculator h1 span {
-  color: #730157;
+  color: #c8870d;
 }
 
 .date_input_box {
@@ -52,7 +52,7 @@
 }
 
 .date_input_box button {
-  background: #730157;
+  background: #c8870d;
   border: 0;
   outline: 0;
   padding: 15px 30px;
