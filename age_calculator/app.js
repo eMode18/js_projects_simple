@@ -14,52 +14,52 @@ function calculateAge() {
 
   let dateOfBirth = new Date(dateInput.value);
 
-  let day1 = dateOfBirth.getDate();
+  let birthdate = dateOfBirth.getDate();
   let month1 = dateOfBirth.getMonth() + 1;
   let year1 = dateOfBirth.getFullYear();
 
   let today = new Date();
 
-  let day2 = today.getDate();
+  let currentDate = today.getDate();
   let month2 = today.getMonth() + 1;
   let year2 = today.getFullYear();
 
-  let d3, m3, y3;
+  let days, months, years;
 
-  y3 = year2 - year1;
+  years = year2 - year1;
 
   if (month2 >= month1) {
-    m3 = month2 - month1;
+    months = month2 - month1;
   } else {
-    y3--;
-    m3 = 12 + month2 - month1;
+    years--;
+    months = 12 + month2 - month1;
   }
 
-  if (day2 >= day1) {
-    d3 = day2 - day1;
+  if (currentDate >= birthdate) {
+    days = currentDate - birthdate;
   } else {
-    m3--;
-    d3 = getDaysInMonth(year1, month1) + day2 - day1;
+    months--;
+    days = getDaysInMonth(year1, month1) + currentDate - birthdate;
   }
 
-  if (m3 < 0) {
-    m3 = 11;
-    y3--;
+  if (months < 0) {
+    months = 11;
+    years--;
   }
 
   // Create age message based on non-zero date values
   let ageMessage = [];
 
-  if (y3 > 0) {
-    ageMessage.push(`<span>${y3}</span> ${pluralize(y3, "year")}`);
+  if (years > 0) {
+    ageMessage.push(`<span>${years}</span> ${pluralize(years, "year")}`);
   }
 
-  if (m3 > 0) {
-    ageMessage.push(`<span>${m3}</span> ${pluralize(m3, "month")}`);
+  if (months > 0) {
+    ageMessage.push(`<span>${months}</span> ${pluralize(months, "month")}`);
   }
 
-  if (d3 > 0) {
-    ageMessage.push(`<span>${d3}</span> ${pluralize(d3, "day")}`);
+  if (days > 0) {
+    ageMessage.push(`<span>${days}</span> ${pluralize(days, "day")}`);
   }
 
   // Handle cases where all values are 0 (newborns)
@@ -70,7 +70,7 @@ function calculateAge() {
   }
 
   // Check if today is the user's birthday
-  if (day1 === day2 && month1 === month2) {
+  if (birthdate === currentDate && month1 === month2) {
     result.innerHTML = `<strong>Happy Birthday!</strong> ` + result.innerHTML;
   }
 }
