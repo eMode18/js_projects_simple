@@ -47,22 +47,26 @@ function calculateAge() {
     y3--;
   }
 
-  // For ages less than 1 year old
-  if (y3 === 0) {
-    result.innerHTML = `You are <span>${m3}</span> ${pluralize(
-      m3,
-      "month"
-    )}, and <span>${d3}</span> ${pluralize(d3, "day")} old.`;
+  // Create age message based on non-zero date values
+  let ageMessage = [];
+
+  if (y3 > 0) {
+    ageMessage.push(`<span>${y3}</span> ${pluralize(y3, "year")}`);
   }
-  // For singular date values, i.e 1 yr 1mm 1d etc
-  else {
-    result.innerHTML = `You are <span>${y3}</span> ${pluralize(
-      y3,
-      "year"
-    )}, <span>${m3}</span> ${pluralize(
-      m3,
-      "month"
-    )}, and <span>${d3}</span> ${pluralize(d3, "day")} old.`;
+
+  if (m3 > 0) {
+    ageMessage.push(`<span>${m3}</span> ${pluralize(m3, "month")}`);
+  }
+
+  if (d3 > 0) {
+    ageMessage.push(`<span>${d3}</span> ${pluralize(d3, "day")}`);
+  }
+
+  // Handle cases where all values are 0 (newborns)
+  if (ageMessage.length === 0) {
+    result.innerHTML = "You are less than a day old.";
+  } else {
+    result.innerHTML = `You are ${ageMessage.join(", ")} old.`;
   }
 }
 
