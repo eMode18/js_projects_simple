@@ -68,11 +68,16 @@ function calculateAge() {
   } else {
     result.innerHTML = `You are ${ageMessage.join(", ")} old.`;
   }
+
+  // Check if today is the user's birthday
+  if (day1 === day2 && month1 === month2) {
+    result.innerHTML = `<strong>Happy Birthday!</strong> ` + result.innerHTML;
+  }
 }
 
 // Return the singular or plural form of Year/Month/Day based on value
-function pluralize(value, unit) {
-  return value === 1 ? unit : unit + "s";
+function pluralize(dateValue, unit) {
+  return dateValue === 1 ? unit : unit + "s";
 }
 
 function getDaysInMonth(year, month) {
