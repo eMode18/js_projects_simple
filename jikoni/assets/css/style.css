@@ -70,9 +70,9 @@
 
   /* Border radius */
   --radius-small: 4px;
-  --radium-medium: 8px;
-  --radium-circle: 50%;
-  --radium-pill: 500px;
+  --radius-medium: 8px;
+  --radius-circle: 50%;
+  --radius-pill: 500px;
 
   /* box-shadow */
 
@@ -296,3 +296,73 @@ main {
   line-height: 16px;
   letter-spacing: 0.5px;
 }
+
+/* common classes */
+.has-state {
+  position: relative;
+  overflow: hidden;
+}
+
+.has-state::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transition: var(--transition-short);
+}
+
+.has-state:where(:hover, :focus-visible):not(:active)::after {
+  background-color: var(--alpha-10);
+}
+
+.material-symbols-outlined {
+  display: block;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* icon Button */
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background-color: var(--primary-container);
+  border-radius: var(--radius-circle);
+}
+
+.btn {
+  height: 40px;
+  max-width: max-content;
+  padding-inline: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-small);
+  transition: var(--transition-short);
+}
+
+.btn .material-symbols-outlined {
+  font-size: 1.8rem;
+}
+
+.btn.has-icon {
+  padding-inline-start: 16px;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:where(:hover, :focus-visible):not(:active) {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--primary-container);
+}
+
+/* Header */
