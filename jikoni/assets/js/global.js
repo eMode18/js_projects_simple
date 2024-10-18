@@ -40,3 +40,30 @@ export const $skeletonCard = `
       </div>
   </div>
 `;
+
+/** {saveRecipe to localStorage} */
+
+const /** {String} */ ROOT = "https://api.edamam.com/api/recipes/v2";
+
+window.saveRecipe = function (element, recipeId) {
+  const /** {Boolean} */ isSaved = window.localStorage.getItem(
+      `jikoni-recipe-${recipeId}`
+    );
+  ACCESS_POINT = `${ROOT}/${recipeId}`;
+
+  if (!isSaved) {
+    fetchData(cardQueries, function (data) {
+      window.localStorage.setItem(
+        `jikoni-recipe-${recipeId}`,
+        JSON.stringify(data)
+      );
+      element.classList.toggle("saved");
+      element.classList.toggle("removed");
+    });
+    ACCESS_POINT = ROOT;
+  } else {
+    window.localStorage.removeItem(`jikoni-recipe-${recipeId}`);
+    element.classList.toggle("saved");
+    element.classList.toggle("removed");
+  }
+};

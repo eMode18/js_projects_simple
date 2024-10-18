@@ -109,6 +109,12 @@ const addTabContent = ($currentTabBtn, $currentTabPanel) => {
           recipe: { image, label: title, totalTime: cookingTime, uri },
         } = data.hits[i];
 
+        // console.log(uri.split("_")[1]);
+
+        const /** {String} */ recipeId = uri.split("_")[1];
+        const /** {Undefined || Boolean} */ isSaved =
+            window.localStorage.getItem(`jikoni-recipe-${recipeId}`);
+
         const $card = document.createElement("div");
         $card.classList.add("card");
         $card.style.animationDelay = `${100 * i}ms`;
@@ -126,9 +132,9 @@ const addTabContent = ($currentTabBtn, $currentTabPanel) => {
           </figure>
 
           <div class="card-body">
-            <h3       class="title-small">
+            <h3 class="title-small">
               <a 
-              href="./detail.html" class="card-link">
+              href="./detail.html?recipe=${recipeId}" class="card-link">
               ${title ?? "Untitled"}
               </a>
             </h3>
@@ -146,8 +152,9 @@ const addTabContent = ($currentTabBtn, $currentTabPanel) => {
               </div>
 
               <button
-                class="icon-btn has-state removed"
-                aria-label="Add to saved recipes"
+                class="icon-btn has-state ${isSaved ? "saved" : "removed"}"
+                aria-label="Add to saved recipes" 
+                onclick="saveRecipe(this, '${recipeId}')"
               >
                 <span
                   class="material-symbols-outlined bookmark-add"
@@ -184,3 +191,18 @@ const addTabContent = ($currentTabBtn, $currentTabPanel) => {
 };
 
 addTabContent($lastActiveTabBtn, $lastActiveTabPanel);
+
+// Add this function to the global scope
+window.saveRecipe = function (button, recipeId) {
+  const isSaved = localStorage.getItem(`jikoni-recipe-${recipeId}`);
+
+  if (isSaved) {
+    localStorage.removeItem(`jikoni-recipe-${recipeId}`);
+    button.classList.remove("saved");
+    button.classList.add("removed");
+  } else {
+    localStorage.setItem(`jikoni-recipe-${recipeId}`, "true");
+    button.classList.remove("removed");
+    button.classList.add("saved");
+  }
+};
