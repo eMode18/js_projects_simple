@@ -357,6 +357,17 @@ main {
   margin-block-end: 12px;
 }
 
+.snackbar-container {
+  position: fixed;
+  bottom: calc(var(--mobile-nav-height) + 16px);
+  left: 16px;
+  right: 16px;
+  display: grid;
+  gap: 8px;
+  z-index: 4;
+  max-width: max-content;
+}
+
 /* icon Button */
 .icon-btn {
   width: 40px;
@@ -725,7 +736,7 @@ main {
 /* Recipe slider */
 
 .slider {
-  --gap: 80px;
+  --gap: 55px; /* Reduced from 80px to 55px */
   position: relative;
   overflow-x: auto;
   scroll-snap-type: inline mandatory;
@@ -752,12 +763,13 @@ main {
 }
 
 .slider-item {
-  min-width: calc(50% - 4px);
+  min-width: calc(35% - 4px); /* Reduced from 50% to 35% */
   scroll-snap-align: start;
 }
 
 .load-more-card {
-  height: 100%;
+  aspect-ratio: 1 / 1; /* maintain aspect ratio: same as slider-item */
+  width: 100%; /* maintain width: same as slider-item */
   background-color: var(--primary-container);
   border-radius: var(--radius-small);
   border: 1px solid var(--outline);
@@ -808,4 +820,35 @@ main {
 
 .footer .edamam img {
   width: 180px;
+}
+
+/* Snackbar */
+
+.snackbar {
+  background-color: var(--on-background-variant);
+  height: 48px;
+  width: 100%;
+  color: var(--background);
+  padding-inline: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--radius-small);
+  box-shadow: var(--shadow-1);
+  animation: snackbar 2s var(--transition-timing-function) forwards;
+}
+
+@keyframes snackbar {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  10%,
+  95% {
+    height: 48px;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

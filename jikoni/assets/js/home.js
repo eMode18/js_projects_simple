@@ -192,22 +192,9 @@ const addTabContent = ($currentTabBtn, $currentTabPanel) => {
 
 addTabContent($lastActiveTabBtn, $lastActiveTabPanel);
 
-// Add this function to the global scope
-window.saveRecipe = function (button, recipeId) {
-  const isSaved = localStorage.getItem(`jikoni-recipe-${recipeId}`);
-
-  if (isSaved) {
-    localStorage.removeItem(`jikoni-recipe-${recipeId}`);
-    button.classList.remove("saved");
-    button.classList.add("removed");
-  } else {
-    localStorage.setItem(`jikoni-recipe-${recipeId}`, "true");
-    button.classList.remove("removed");
-    button.classList.add("saved");
-  }
-};
-
-/** {Fetch data for the slider card} */
+/**
+ * {Fetch data for the slider card}
+ * */
 
 let /** {Array} */ cuisineType = [
     "Asian",
@@ -231,7 +218,7 @@ for (const [index, $sliderSection] of $sliderSections.entries()) {
 
       <div class="slider">
         <ul class="slider-wrapper" data-slider-wrapper>
-        ${`<li class="slider-item">${$skeletonCard}</li>`.repeat(10)}
+        ${`<li class="slider-item">${$skeletonCard}</li>`.repeat(8)}
         </ul>
       </div>
 

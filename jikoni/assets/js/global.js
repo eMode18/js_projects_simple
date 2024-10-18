@@ -43,27 +43,31 @@ export const $skeletonCard = `
 
 /** {saveRecipe to localStorage} */
 
-const /** {String} */ ROOT = "https://api.edamam.com/api/recipes/v2";
+window.saveRecipe = function (button, recipeId) {
+  const isSaved = localStorage.getItem(`jikoni-recipe-${recipeId}`);
 
-window.saveRecipe = function (element, recipeId) {
-  const /** {Boolean} */ isSaved = window.localStorage.getItem(
-      `jikoni-recipe-${recipeId}`
-    );
-  ACCESS_POINT = `${ROOT}/${recipeId}`;
-
-  if (!isSaved) {
-    fetchData(cardQueries, function (data) {
-      window.localStorage.setItem(
-        `jikoni-recipe-${recipeId}`,
-        JSON.stringify(data)
-      );
-      element.classList.toggle("saved");
-      element.classList.toggle("removed");
-    });
-    ACCESS_POINT = ROOT;
+  if (isSaved) {
+    localStorage.removeItem(`jikoni-recipe-${recipeId}`);
+    button.classList.remove("saved");
+    button.classList.add("removed");
+    showNotification("Recipe removed from bookmarks");
   } else {
-    window.localStorage.removeItem(`jikoni-recipe-${recipeId}`);
-    element.classList.toggle("saved");
-    element.classList.toggle("removed");
+    localStorage.setItem(`jikoni-recipe-${recipeId}`, "true");
+    button.classList.remove("removed");
+    button.classList.add("saved");
+    showNotification("Recipe saved to bookmarks");
   }
 };
+
+/** {showNotification} */
+
+const /** {NodeElement} */ $snackbarContainer = document.createElement("div");
+$snackbarContainer.classList.add("snackbar-container");
+document.body.appendChild($snackbarContainer);
+
+function showNotification(message) {
+  const /** {NodeElement} */ $snackbar = document.createElement("div");
+  $snackbar.classList.add("snackbar");
+  $snackbar.innerHTML = `<p class="body-medium">${message}</p>`;
+  $snackbarContainer.appendChild($snackbar);
+}
