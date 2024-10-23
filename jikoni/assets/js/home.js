@@ -197,12 +197,11 @@ addTabContent($lastActiveTabBtn, $lastActiveTabPanel);
  * */
 
 let /** {Array} */ cuisineType = [
-    "Asian",
-    "American",
+    "Chinese",
     "Italian",
     "French",
-    "African",
     "Mexican",
+    "Indian",
   ];
 
 const /** {NodeList} */ $sliderSections = document.querySelectorAll(
@@ -212,7 +211,7 @@ const /** {NodeList} */ $sliderSections = document.querySelectorAll(
 for (const [index, $sliderSection] of $sliderSections.entries()) {
   $sliderSection.innerHTML = `
     <div class="container">
-      <h2 class="section-title headline-small" id="slider-label-1">
+      <h2 class="section-title headline-small" id="slider-label-${index + 1}">
         Latest ${cuisineType[index]} Recipes
       </h2>
 
@@ -221,7 +220,6 @@ for (const [index, $sliderSection] of $sliderSections.entries()) {
         ${`<li class="slider-item">${$skeletonCard}</li>`.repeat(8)}
         </ul>
       </div>
-
     </div>
   `;
 
@@ -234,7 +232,7 @@ for (const [index, $sliderSection] of $sliderSections.entries()) {
     function (data) {
       $sliderWrapper.innerHTML = "";
 
-      data.hits.map((item) => {
+      data.hits.slice(0, 8).forEach((item) => {
         const {
           recipe: { image, label: title, totalTime: cookingTime, uri },
         } = item;
