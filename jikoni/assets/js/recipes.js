@@ -135,12 +135,17 @@ const /** {NodeElement} */ $filterCount = document.querySelector(
     "[data-filter-count]"
   );
 
+const /** {NodeElement} */ $filterBtn =
+    document.querySelector("[data-filter-btn]");
+
 // Function to update filter count
 const updateFilterCount = () => {
   const activeFilters = $filterBar.querySelectorAll("input:checked").length;
   if (activeFilters > 0) {
     $filterCount.style.display = "block";
     $filterCount.innerHTML = activeFilters;
+    $filterBtn.style.backgroundColor = "var(--on-background)";
+    $filterBtn.style.color = "var(--background)";
   } else {
     $filterCount.style.display = "none";
   }
@@ -167,9 +172,6 @@ queryStr &&
 
 // Update filter count after handling query parameters
 updateFilterCount();
-
-const /** {NodeElement} */ $filterBtn =
-    document.querySelector("[data-filter-btn]");
 
 window.addEventListener("scroll", (e) => {
   $filterBtn.classList[window.scrollY >= 120 ? "add" : "remove"]("active");
@@ -204,7 +206,10 @@ const renderRecipes = function (data) {
       recipe: { image, label: title, totalTime: cookingTime, uri },
     } = item;
 
-    const /** {String} */ recipeId = uri.split("_")[1];
+    console.log("Recipe URI:", uri);
+    const recipeId = uri.split("_")[1];
+    console.log("Extracted Recipe ID:", recipeId);
+
     const /** {Undefined || Boolean} */ isSaved = window.localStorage.getItem(
         `jikoni-recipe-${recipeId}`
       );
