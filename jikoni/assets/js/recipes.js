@@ -206,9 +206,7 @@ const renderRecipes = function (data) {
       recipe: { image, label: title, totalTime: cookingTime, uri },
     } = item;
 
-    console.log("Recipe URI:", uri);
     const recipeId = uri.split("_")[1];
-    console.log("Extracted Recipe ID:", recipeId);
 
     const /** {Undefined || Boolean} */ isSaved = window.localStorage.getItem(
         `jikoni-recipe-${recipeId}`
@@ -253,7 +251,10 @@ const renderRecipes = function (data) {
             <button
                 class="icon-btn has-state ${isSaved ? "saved" : "removed"}"
                 aria-label="Add to saved recipes" 
-                onclick="saveRecipe(this, '${recipeId}')"
+                onclick="saveRecipe(this, '${recipeId}', '${title.replace(
+      /'/g,
+      "\\'"
+    )}')"
             >
                 <span
                 class="material-symbols-outlined bookmark-add"

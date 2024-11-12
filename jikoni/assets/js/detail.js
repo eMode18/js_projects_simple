@@ -174,16 +174,17 @@ fetchData([], (data) => {
   const saveBtn = $detailContainer.querySelector("[data-save-btn]");
   if (saveBtn) {
     saveBtn.addEventListener("click", function () {
-      const storageId = `jikoni-recipe-${recipeId}`;
-      const isSaved = window.localStorage.getItem(storageId);
+      const isSaved = window.localStorage.getItem(`jikoni-recipe-${recipeId}`);
+
+      saveRecipe(saveBtn, recipeId, title);
 
       if (isSaved) {
-        window.localStorage.removeItem(storageId);
+        window.localStorage.removeItem(`jikoni-recipe-${recipeId}`);
         this.classList.remove("saved");
         this.classList.add("removed");
         this.querySelector(".btn-text").textContent = "Save";
       } else {
-        window.localStorage.setItem(storageId, true);
+        window.localStorage.setItem(`jikoni-recipe-${recipeId}`, title);
         this.classList.remove("removed");
         this.classList.add("saved");
         this.querySelector(".btn-text").textContent = "Remove";

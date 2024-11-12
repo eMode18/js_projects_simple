@@ -1278,3 +1278,20 @@ main {
 .detail-content-skeleton .filter-chip-skeleton {
   width: 80px;
 }
+
+/* Saved Recipes */
+
+.saved-recipe-page {
+  padding-block-end: 24px;
+}
+
+.saved-recipe-page .section-title {
+  line-height: 40px;
+}
+
+.error-notification {
+  background-color: var(--error);
+  color: var(--white);
+  padding: 16px;
+  border-radius: var(--radius-small);
+}

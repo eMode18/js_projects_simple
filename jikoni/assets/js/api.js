@@ -34,12 +34,13 @@ export const fetchData = async function (queries = [], successCallback) {
 
     // Fetch the data from the API
     const response = await fetch(url);
+    // console.log("Fetching data from URL:", url);
 
     // Handle response
     if (response.ok) {
       const data = await response.json();
-      console.log("Data: ", data);
       successCallback(data);
+      // console.log("API Response:", data);
     } else {
       console.error("Network response was not ok", response.statusText);
     }
