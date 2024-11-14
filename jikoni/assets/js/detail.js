@@ -141,8 +141,8 @@ fetchData([], (data) => {
           <div class="stats-item">
 
 
-            <span class="display-medium">${
-              cookingTime > 0 ? getTime(cookingTime) : "<1 minute"
+            <span class="display-small">${
+              cookingTime > 0 ? getTime(cookingTime) : "< 1 minute"
             }</span>
 
              <span class="label-medium">cooking time</span>
